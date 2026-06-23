@@ -1,5 +1,4 @@
 import React from "react";
-import { TruckElectric } from "lucide-react";
 function Cardcontent({ item }) {
   const { icon, title, description } = item;
   return (
