@@ -11,6 +11,7 @@ const FeaturedProducts = async () => {
   const data = await res.json();
 
   const product = data.map((item) => ({
+    id: item.id,
     category: item.category,
     name: item.title,
     rating: item.rating.rate,
@@ -37,7 +38,7 @@ const FeaturedProducts = async () => {
               <TabsContent value="Best_Sellers">
                 <div className="w-full grid grid-cols-5 gap-8.50 gap-y-7.5 mt-8.75 ">
                   {product.map((product) => (
-                    <ProductCard key={product._id} product={product} />
+                    <ProductCard key={product.id} product={product} />
                   ))}
                 </div>
               </TabsContent>

@@ -2,14 +2,24 @@
 import Image from "next/image";
 import Container from "../Container";
 import { Swiper, SwiperSlide } from "swiper/react";
-import { Navigation } from "swiper/modules";
+import { Navigation, Pagination } from "swiper/modules";
 import "swiper/css";
 import "swiper/css/navigation";
+import "swiper/css/pagination";
 const Banner = () => {
   return (
     <section className="bg-[url(/images/banner.jpg)] bg-cover bg-center">
       <Container>
-        <Swiper navigation={true} modules={[Navigation]} className="mySwiper">
+<div className="relative">
+
+        <Swiper
+          navigation={true}
+          pagination={{
+            clickable: true,
+          }}
+          modules={[Pagination, Navigation]}
+          className="mySwiper"
+        >
           <SwiperSlide>
             <div className="flex items-center justify-between">
               <div>
@@ -80,6 +90,9 @@ const Banner = () => {
             </div>
           </SwiperSlide>
         </Swiper>
+
+</div>
+
       </Container>
     </section>
   );

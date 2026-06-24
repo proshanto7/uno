@@ -3,7 +3,7 @@ import React from 'react'
 
 function Logo() {
   return (
-    <Image src="/images/logo.png" alt="logo" width={111} height={27} />
+    <Image src="/images/logo.png" alt="logo" width={111} height={27}  className="w-auto h-auto"/>
   )
 }
 

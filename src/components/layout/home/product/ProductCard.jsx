@@ -1,10 +1,7 @@
 "use client";
 import { ShoppingBag, Eye, Heart } from "lucide-react";
-import { useState } from "react";
 
-const ProductCard = ({ product }) => {
-  const [wishlist, setWishlist] = useState(false);
-
+const ProductCard = ({ product, key }) => {
   const { category, name, rating, reviewCount, price, image } = product;
 
   const renderStars = (rating) =>
@@ -23,7 +20,10 @@ const ProductCard = ({ product }) => {
     ));
 
   return (
-    <div className="w-64 group bg-white rounded-2xl shadow-md hover:shadow-xl transition-shadow duration-300 p-4 flex flex-col gap-3">
+    <div
+      key={key}
+      className="w-64 group bg-white rounded-2xl shadow-md hover:shadow-xl transition-shadow duration-300 p-4 flex flex-col gap-3"
+    >
       {/* Image */}
 
       <div className="relative ">
@@ -65,7 +65,9 @@ const ProductCard = ({ product }) => {
         <p className="text-sm text-gray-400 font-normal leading-6 left-6">
           {category}
         </p>
-        <h3 className="truncate text-[15px] font-normal text-primary-text">{name}</h3>
+        <h3 className="truncate text-[15px] font-normal text-primary-text">
+          {name}
+        </h3>
         <div className="flex items-center gap-1.5 mt-0.5">
           <div className="flex items-center gap-0.5">{renderStars(rating)}</div>
           <span className="text-xs text-gray-400">
