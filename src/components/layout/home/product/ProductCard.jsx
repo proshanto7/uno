@@ -7,7 +7,6 @@ const ProductCard = ({ product }) => {
 
   const { category, name, rating, reviewCount, price, image } = product;
 
-
   const renderStars = (rating) =>
     Array.from({ length: 5 }, (_, i) => (
       <svg
@@ -24,10 +23,10 @@ const ProductCard = ({ product }) => {
     ));
 
   return (
-    <div className="w-64 group  bg-white rounded-2xl shadow-md hover:shadow-xl transition-shadow duration-300 p-4 flex flex-col gap-3">
+    <div className="w-64 group bg-white rounded-2xl shadow-md hover:shadow-xl transition-shadow duration-300 p-4 flex flex-col gap-3">
       {/* Image */}
 
-      <div className="relative">
+      <div className="relative ">
         <div className="w-full h-40 bg-gray-100 rounded-xl flex items-center justify-center overflow-hidden">
           {image ? (
             <img
@@ -45,29 +44,18 @@ const ProductCard = ({ product }) => {
 
         {/* Buttons */}
 
-        <div className="absolute hidden group-hover:block  -bottom-4 right-[50%] translate-x-1/2">
+        <div className="absolute opacity-0 group-hover:opacity-100 duration-300  -bottom-4 right-[50%] translate-x-1/2">
           <div className="flex items-center justify-center gap-3">
-            <button className="w-11 h-11 rounded-full bg-[#F3E8D6] hover:bg-primary group flex items-center justify-center transition-colors ">
-              <ShoppingBag
-                size={18}
-                className="text-primary-text group-hover:text-white duration-300"
-              />
+            <button className="w-11 h-11 text-primary-text hover:text-white duration-300 rounded-full bg-[#F3E8D6] hover:bg-primary  flex items-center justify-center transition-colors  cursor-pointer">
+              <ShoppingBag size={18} />
             </button>
 
-            <button className="w-11 h-11 rounded-full bg-[#F3E8D6] hover:bg-primary group flex items-center justify-center transition-colors">
-              <Eye
-                size={18}
-                className="text-green-700 group-hover:text-white duration-300"
-              />
+            <button className="w-11 h-11 rounded-full text-primary-text hover:text-white duration-300 bg-[#F3E8D6] hover:bg-primary group flex items-center justify-center transition-colors cursor-pointer">
+              <Eye size={18} />
             </button>
-            <button className="w-11 h-11 rounded-full bg-[#F3E8D6] hover:bg-primary group flex items-center justify-center transition-colors">
-              <Heart
-                size={18}
-                className="text-green-700 group-hover:text-white duration-300"
-              />
+            <button className="w-11 h-11 rounded-full text-primary-text hover:text-white duration-300 bg-[#F3E8D6] hover:bg-primary group flex items-center justify-center transition-colors cursor-pointer">
+              <Heart size={18} />
             </button>
-
-           
           </div>
         </div>
       </div>
@@ -77,7 +65,7 @@ const ProductCard = ({ product }) => {
         <p className="text-sm text-gray-400 font-normal leading-6 left-6">
           {category}
         </p>
-        <h3 className="text-[15px] font-normal text-primary-text">{name}</h3>
+        <h3 className="truncate text-[15px] font-normal text-primary-text">{name}</h3>
         <div className="flex items-center gap-1.5 mt-0.5">
           <div className="flex items-center gap-0.5">{renderStars(rating)}</div>
           <span className="text-xs text-gray-400">
