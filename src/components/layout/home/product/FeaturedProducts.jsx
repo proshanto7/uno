@@ -23,7 +23,7 @@ const FeaturedProducts = async () => {
     <section className="py-20">
       <Container>
         <div className="relative">
-          <Title />
+          <Title  title="Featured Products"/>
 
           <div>
             <Tabs defaultValue="overview" className="w-full">

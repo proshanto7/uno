@@ -1,8 +1,8 @@
 import React from 'react'
 
-function Title() {
+function Title({title}) {
   return (
-    <div className='font-normal text-[35px] text-primary-text uppercase'>Featured Products</div>
+    <div className='font-normal text-[35px] text-primary-text uppercase'>{title}</div>
   )
 }
 
