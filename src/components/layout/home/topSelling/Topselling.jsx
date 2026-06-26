@@ -1,0 +1,35 @@
+import React from "react";
+import Container from "../../Container";
+import Title from "../Title";
+import Button from "@/components/common/Button";
+import TopsellingSwiper from "./TopsellingSwiper";
+
+const Topselling = async () => {
+  const res = await fetch("https://fakestoreapi.com/products");
+  const data = await res.json();
+
+  const products = data.slice(0, 8).map((item) => ({
+    id: item.id,
+    category: item.category,
+    name: item.title,
+    rating: item.rating.rate,
+    reviewCount: item.rating.count,
+    price: item.price,
+    image: item.image,
+  }));
+
+  return (
+    <section className="py-22.75">
+      <Container>
+        <div className="flex items-center justify-between mb-8">
+          <Title title="Top Selling Products" />
+          <Button name="SEE ALL PRODUCT" />
+        </div>
+
+        <TopsellingSwiper products={products} />
+      </Container>
+    </section>
+  );
+};
+
+export default Topselling;
