@@ -2,8 +2,6 @@ import React from "react";
 import ProductCard from "./ProductCard";
 import Container from "../../Container";
 import Title from "../Title";
-// import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs";
-
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 
 const FeaturedProducts = async () => {
