@@ -22,7 +22,7 @@ const ProductCard = ({ product, key }) => {
   return (
     <div
       key={key}
-      className="w-64 group bg-white rounded-2xl shadow-md hover:shadow-xl transition-shadow duration-300 p-4 flex flex-col gap-3"
+      className="w-64 group bg-white rounded-2xl product-shadow  p-4 flex flex-col gap-3"
     >
       {/* Image */}
 
@@ -32,7 +32,7 @@ const ProductCard = ({ product, key }) => {
             <img
               src={image}
               alt={name}
-              className="w-full h-full object-contain"
+              className="w-full h-full object-contain group-hover:transform group-hover:scale-105 duration-300 ease-in-out"
             />
           ) : (
             <svg viewBox="0 0 80 60" className="w-24 opacity-30">

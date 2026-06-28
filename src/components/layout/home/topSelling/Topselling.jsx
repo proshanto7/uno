@@ -19,7 +19,7 @@ const Topselling = async () => {
   }));
 
   return (
-    <section className="py-22.75">
+    <section className="pt-22.75">
       <Container>
         <div className="flex items-center justify-between mb-8">
           <Title title="Top Selling Products" />
