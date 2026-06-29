@@ -1,4 +1,5 @@
 import Banner from '@/components/layout/home/Banner'
+import Blog from '@/components/layout/home/blog/Blog'
 import Category from '@/components/layout/home/category/Category'
 import Content from '@/components/layout/home/content/Content'
 import Discount from '@/components/layout/home/discount/Discount'
@@ -15,6 +16,7 @@ function page() {
       <Category/>
       <Topselling/>
       <Discount/>
+      <Blog/>
       
     </main>
   )
