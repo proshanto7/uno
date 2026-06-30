@@ -14,18 +14,11 @@ const Category = () => {
           <Button name="SHOP ALL CATEGORIES" />
         </div>
 
-<div className="grid grid-cols-5 gap-7 mt-10">
-
-{
-Array.from({ length: 5 }, (_, i) => <CategoryCard key={i} />)
-
-}
-
-
-</div>
-
-
-
+        <div className="grid grid-cols-5 gap-7 mt-10">
+          {Array.from({ length: 5 }, (_, i) => (
+            <CategoryCard key={i} />
+          ))}
+        </div>
       </Container>
     </section>
   );
