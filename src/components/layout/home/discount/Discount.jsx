@@ -3,22 +3,25 @@ import Title from "../Title";
 import DiscountProduct from "./DiscountProduct";
 
 const Discount = async () => {
- const res = await fetch("https://fakestoreapi.com/products", {
-  next: { revalidate: 3600 },
-});
+  const res = await fetch("https://fakestoreapi.com/products", {
+    next: { revalidate: 3600 },
+  });
 
-if (!res.ok) {
-  throw new Error(`Fetch failed: ${res.status}`);
+  if (!res.ok) {
+    throw new Error(`Fetch failed: ${res.status}`);
+  }
+  if (!res.ok) {
+  throw new Error(`Discount: ${res.status}`);
 }
 
-const contentType = res.headers.get("content-type");
+  const contentType = res.headers.get("content-type");
 
-if (!contentType?.includes("application/json")) {
-  const text = await res.text();
-  throw new Error(`Expected JSON but got: ${text.slice(0, 100)}`);
-}
+  if (!contentType?.includes("application/json")) {
+    const text = await res.text();
+    throw new Error(`Expected JSON but got: ${text.slice(0, 100)}`);
+  }
 
-const data = await res.json();
+  const data = await res.json();
 
   const products = data.slice(0, 8).map((item) => ({
     id: item.id,
