@@ -12,15 +12,7 @@ const FeaturedProducts = async () => {
 if (!res.ok) {
   throw new Error(`Fetch failed: ${res.status}`);
 }
-if (!res.ok) {
-  throw new Error(`FeaturedProducts: ${res.status}`);
-}
-const contentType = res.headers.get("content-type");
 
-if (!contentType?.includes("application/json")) {
-  const text = await res.text();
-  throw new Error(`Expected JSON but got: ${text.slice(0, 100)}`);
-}
 
 const data = await res.json();
 
