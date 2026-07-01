@@ -1,30 +1,50 @@
-import React from "react";
+"use client";
+
+import React, { useEffect, useState } from "react";
 import Container from "../../Container";
 import Title from "../Title";
 import Button from "@/components/common/Button";
 import TopsellingSwiper from "./TopsellingSwiper";
 
-const Topselling = async () => {
- const res = await fetch("https://fakestoreapi.com/products", {
-  next: { revalidate: 3600 },
-});
+const Topselling = () => {
+  const [products, setProducts] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
 
-if (!res.ok) {
-  throw new Error(`Fetch failed: ${res.status}`);
-}
+  useEffect(() => {
+    const fetchProducts = async () => {
+      try {
+        const res = await fetch("https://fakestoreapi.com/products");
 
+        if (!res.ok) {
+          throw new Error(`Fetch failed: ${res.status}`);
+        }
 
-const data = await res.json();
+        const data = await res.json();
 
-  const products = data.slice(0, 8).map((item) => ({
-    id: item.id,
-    category: item.category,
-    name: item.title,
-    rating: item.rating.rate,
-    reviewCount: item.rating.count,
-    price: item.price,
-    image: item.image,
-  }));
+        const formatted = data.slice(0, 8).map((item) => ({
+          id: item.id,
+          category: item.category,
+          name: item.title,
+          rating: item.rating.rate,
+          reviewCount: item.rating.count,
+          price: item.price,
+          image: item.image,
+        }));
+
+        setProducts(formatted);
+      } catch (err) {
+        setError(err.message);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchProducts();
+  }, []);
+
+  if (loading) return <div>Loading...</div>;
+  if (error) return <div>Error: {error}</div>;
 
   return (
     <section className="pt-22.75">

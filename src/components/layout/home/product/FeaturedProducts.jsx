@@ -1,35 +1,56 @@
-import React from "react";
+"use client";
+
+import React, { useEffect, useState } from "react";
 import ProductCard from "./ProductCard";
 import Container from "../../Container";
 import Title from "../Title";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 
-const FeaturedProducts = async () => {
-  const res = await fetch("https://fakestoreapi.com/products", {
-  next: { revalidate: 3600 },
-});
+const FeaturedProducts = () => {
+  const [product, setProduct] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
 
-if (!res.ok) {
-  throw new Error(`Fetch failed: ${res.status}`);
-}
+  useEffect(() => {
+    const fetchProducts = async () => {
+      try {
+        const res = await fetch("https://fakestoreapi.com/products");
 
+        if (!res.ok) {
+          throw new Error(`Fetch failed: ${res.status}`);
+        }
 
-const data = await res.json();
+        const data = await res.json();
 
-  const product = data.map((item) => ({
-    id: item.id,
-    category: item.category,
-    name: item.title,
-    rating: item.rating.rate,
-    reviewCount: item.rating.count,
-    price: item.price,
-    image: item.image,
-  }));
+        const formatted = data.map((item) => ({
+          id: item.id,
+          category: item.category,
+          name: item.title,
+          rating: item.rating.rate,
+          reviewCount: item.rating.count,
+          price: item.price,
+          image: item.image,
+        }));
+
+        setProduct(formatted);
+      } catch (err) {
+        setError(err.message);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchProducts();
+  }, []);
+
+  if (loading) return <div>Loading...</div>;
+  if (error) return <div>Error: {error}</div>;
+
   return (
     <section className="py-20">
       <Container>
         <div className="relative">
-          <Title  title="Featured Products"/>
+          <Title title="Featured Products" />
 
           <div>
             <Tabs defaultValue="overview" className="w-full">
