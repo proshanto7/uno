@@ -10,9 +10,6 @@ const Discount = async () => {
   if (!res.ok) {
     throw new Error(`Fetch failed: ${res.status}`);
   }
- 
-
-  
 
   const data = await res.json();
 
