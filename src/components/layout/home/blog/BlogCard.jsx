@@ -13,9 +13,9 @@ const BlogCard = ({
         <Image
           src={BlogImg}
           alt="blog1"
-          className="w-full h-full object-cover"
           width={320}
           height={220}
+          className="w-auto h-auto object-cover"
         />
       </div>
 

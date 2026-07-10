@@ -1,7 +1,7 @@
 "use client";
 import { ShoppingBag, Eye, Heart } from "lucide-react";
 
-const ProductCard = ({ product, key }) => {
+const ProductCard = ({ product }) => {
   const { category, name, rating, reviewCount, price, image } = product;
 
   const renderStars = (rating) =>
@@ -21,7 +21,7 @@ const ProductCard = ({ product, key }) => {
 
   return (
     <div
-      key={key}
+      key={product.id}
       className="w-64 group bg-white rounded-2xl product-shadow  p-4 flex flex-col gap-3"
     >
       {/* Image */}
