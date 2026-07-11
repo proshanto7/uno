@@ -47,14 +47,14 @@ const ProductCard = ({ product }) => {
         <div className="absolute opacity-0 group-hover:opacity-100 duration-300  -bottom-4 right-[50%] translate-x-1/2">
           <div className="flex items-center justify-center gap-2 sm:gap-3">
             <button className="w-9 h-9 sm:w-11 sm:h-11 text-primary-text hover:text-white duration-300 rounded-full bg-[#F3E8D6] hover:bg-primary  flex items-center justify-center transition-colors  cursor-pointer">
-              <ShoppingBag size={16} className="sm:size-[18px]" />
+              <ShoppingBag size={16} className="sm:size-4.5" />
             </button>
 
             <button className="w-9 h-9 sm:w-11 sm:h-11 rounded-full text-primary-text hover:text-white duration-300 bg-[#F3E8D6] hover:bg-primary group flex items-center justify-center transition-colors cursor-pointer">
-              <Eye size={16} className="sm:size-[18px]" />
+              <Eye size={16} className="sm:size-4.5" />
             </button>
             <button className="w-9 h-9 sm:w-11 sm:h-11 rounded-full text-primary-text hover:text-white duration-300 bg-[#F3E8D6] hover:bg-primary group flex items-center justify-center transition-colors cursor-pointer">
-              <Heart size={16} className="sm:size-[18px]" />
+              <Heart size={16} className="sm:size-4.5" />
             </button>
           </div>
         </div>

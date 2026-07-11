@@ -14,11 +14,11 @@ function page() {
       <Banner/>
       <Content/>
       <FeaturedProducts/>
-      {/* <Category/>
-      <Topselling/>
-      <Discount/>
-      <Blog/>
-      <Whatsapp/> */}
+      <Category/>
+      {/* <Topselling/> */}
+      {/* <Discount/> */}
+      {/* <Blog/> */}
+      {/* <Whatsapp/> */}
       
     </main>
   )
