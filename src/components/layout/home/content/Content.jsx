@@ -1,4 +1,3 @@
-import React from "react";
 import Container from "../../Container";
 import Cardcontent from "./Cardcontent";
 import { Gift, Headset, ShieldCheck, TruckElectric } from "lucide-react";
@@ -36,7 +35,7 @@ function Content() {
   return (
     <section className="bg-[#F7F5EE]">
       <Container>
-        <div className="flex items-center justify-between">
+        <div className="grid grid-cols-1 gap-8 py-10 sm:grid-cols-2 sm:gap-6 lg:grid-cols-4 lg:items-center lg:gap-9 lg:py-0">
           {contentData.map((item) => (
             <Cardcontent key={item.id} item={item} />
           ))}

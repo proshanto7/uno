@@ -12,9 +12,9 @@ function page() {
   return (
     <main>
       <Banner/>
-      {/* <Content/>
-      <FeaturedProducts/>
-      <Category/>
+      <Content/>
+      {/* <FeaturedProducts/> */}
+      {/* <Category/>
       <Topselling/>
       <Discount/>
       <Blog/>
