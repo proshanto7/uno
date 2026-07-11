@@ -39,7 +39,7 @@ const NavMenu = () => {
   return (
     <Sheet open={open} onOpenChange={setOpen}>
       <SheetTrigger className="inline-flex cursor-pointer border-0 bg-transparent p-0 lg:hidden">
-        <ChartNoAxesGantt className="text-primary-text" />
+        <ChartNoAxesGantt className="text-white" />
       </SheetTrigger>
 
       <SheetContent

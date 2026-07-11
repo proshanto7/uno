@@ -11,8 +11,8 @@ import React from 'react'
 function page() {
   return (
     <main>
-      {/* <Banner/>
-      <Content/>
+      <Banner/>
+      {/* <Content/>
       <FeaturedProducts/>
       <Category/>
       <Topselling/>
