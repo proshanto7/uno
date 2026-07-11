@@ -13,7 +13,7 @@ function page() {
     <main>
       <Banner/>
       <Content/>
-      {/* <FeaturedProducts/> */}
+      <FeaturedProducts/>
       {/* <Category/>
       <Topselling/>
       <Discount/>

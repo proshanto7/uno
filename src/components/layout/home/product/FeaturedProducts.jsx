@@ -4,7 +4,12 @@ import React, { useEffect, useState } from "react";
 import ProductCard from "./ProductCard";
 import Container from "../../Container";
 import Title from "../Title";
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import {
+  Tabs,
+  TabsContent,
+  TabsList,
+  TabsTrigger,
+} from "@/components/ui/tabs";
 
 const FeaturedProducts = () => {
   const [product, setProduct] = useState([]);
@@ -47,41 +52,57 @@ const FeaturedProducts = () => {
   if (error) return <div>Error: {error}</div>;
 
   return (
-    <section className="py-20">
+    <section className="py-10 md:py-16 lg:py-20">
       <Container>
-        <div className="relative">
-          <Title title="Featured Products" />
+        <Tabs defaultValue="Best_Sellers" className="w-full">
+          <div className="flex flex-col gap-5 md:relative md:flex-row md:items-center md:justify-between">
+            <Title title="Featured Products" />
 
-          <div>
-            <Tabs defaultValue="overview" className="w-full">
-              <div className="absolute top-0 right-0">
-                <TabsList variant="line">
-                  <TabsTrigger value="Best_Sellers">Best Sellers </TabsTrigger>
-                  <TabsTrigger value="Most_Popular">Most Popular</TabsTrigger>
-                  <TabsTrigger value="Top_20">Top 20</TabsTrigger>
-                  <TabsTrigger value="Best_Rated">Best Rated</TabsTrigger>
-                </TabsList>
-              </div>
-              <TabsContent value="Best_Sellers">
-                <div className="w-full grid grid-cols-5 gap-8.50 gap-y-7.5 mt-8.75 ">
-                  {product.map((product) => (
-                    <ProductCard key={product.id} product={product} />
-                  ))}
-                </div>
-              </TabsContent>
-              <TabsContent value="Top_20">
-                <div>
-                  <h1>Top 20</h1>
-                </div>
-              </TabsContent>
-              <TabsContent value="Most_Popular">
-                <div>
-                  <h1>Most Popular</h1>
-                </div>
-              </TabsContent>
-            </Tabs>
+            <div className="overflow-x-auto md:static md:top-0 md:right-0 md:overflow-visible">
+              <TabsList
+                variant="line"
+                className="w-max min-w-full md:w-auto md:min-w-0"
+              >
+                <TabsTrigger value="Best_Sellers">Best Sellers</TabsTrigger>
+                <TabsTrigger value="Most_Popular">Most Popular</TabsTrigger>
+                <TabsTrigger value="Top_20">Top 20</TabsTrigger>
+                <TabsTrigger value="Best_Rated">Best Rated</TabsTrigger>
+              </TabsList>
+            </div>
           </div>
-        </div>
+
+          <TabsContent value="Best_Sellers">
+            <div className="grid w-full grid-cols-2 gap-5 gap-y-6 mt-6 sm:grid-cols-3 md:gap-6 md:mt-8 lg:grid-cols-4 lg:gap-8.5 lg:gap-y-7.5 xl:grid-cols-5">
+              {product.map((item) => (
+                <ProductCard key={item.id} product={item} />
+              ))}
+            </div>
+          </TabsContent>
+
+          <TabsContent value="Top_20">
+             <div className="grid w-full grid-cols-2 gap-5 gap-y-6 mt-6 sm:grid-cols-3 md:gap-6 md:mt-8 lg:grid-cols-4 lg:gap-8.5 lg:gap-y-7.5 xl:grid-cols-5">
+              {product.map((item) => (
+                <ProductCard key={item.id} product={item} />
+              ))}
+            </div>
+          </TabsContent>
+
+          <TabsContent value="Most_Popular">
+            <div className="grid w-full grid-cols-2 gap-5 gap-y-6 mt-6 sm:grid-cols-3 md:gap-6 md:mt-8 lg:grid-cols-4 lg:gap-8.5 lg:gap-y-7.5 xl:grid-cols-5">
+              {product.map((item) => (
+                <ProductCard key={item.id} product={item} />
+              ))}
+            </div>
+          </TabsContent>
+
+          <TabsContent value="Best_Rated">
+            <div className="grid w-full grid-cols-2 gap-5 gap-y-6 mt-6 sm:grid-cols-3 md:gap-6 md:mt-8 lg:grid-cols-4 lg:gap-8.5 lg:gap-y-7.5 xl:grid-cols-5">
+              {product.map((item) => (
+                <ProductCard key={item.id} product={item} />
+              ))}
+            </div>
+          </TabsContent>
+        </Tabs>
       </Container>
     </section>
   );
