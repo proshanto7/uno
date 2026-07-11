@@ -11,14 +11,14 @@ import React from 'react'
 function page() {
   return (
     <main>
-      <Banner/>
+      {/* <Banner/>
       <Content/>
       <FeaturedProducts/>
       <Category/>
       <Topselling/>
       <Discount/>
       <Blog/>
-      <Whatsapp/>
+      <Whatsapp/> */}
       
     </main>
   )

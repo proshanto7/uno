@@ -14,7 +14,7 @@ function Search() {
     { label: "System", value: "system" },
   ];
   return (
-    <div className="relative inline-block">
+    <div className="relative hidden lg:inline-block">
       <input
         className="bg-white w-136 h-12.5 rounded-sm pl-5"
         placeholder="Search products..."

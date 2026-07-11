@@ -28,7 +28,7 @@ function Navbar() {
   ];
 
   return (
-    <nav className="bg-primary">
+    <nav className="bg-primary hidden lg:block">
       <Container>
         <div className="flex items-center justify-between">
           <ul className="flex items-center gap-10 py-4">
