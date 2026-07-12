@@ -13,9 +13,6 @@ const DiscountProduct = ({ products }) => {
     <>
       <Swiper
         modules={[Navigation, Autoplay]}
-         pagination={{
-          clickable: true,
-        }}
         navigation={{
           prevEl: ".discount-prev",
           nextEl: ".discount-next",
@@ -26,11 +23,12 @@ const DiscountProduct = ({ products }) => {
           pauseOnMouseEnter: true,
         }}
         loop={true}
-        spaceBetween={16}
+        spaceBetween={14}
         slidesPerView={1.2}
+        centeredSlides={true}
         breakpoints={{
-          640: { slidesPerView: 2 },
-          1024: { slidesPerView: 4 },
+          640: { slidesPerView: 2, spaceBetween: 16, centeredSlides: false },
+          1024: { slidesPerView: 4, spaceBetween: 16, centeredSlides: false },
         }}
       >
         {products.map((product) => (

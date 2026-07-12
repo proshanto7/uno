@@ -46,14 +46,14 @@ const Discount = () => {
   if (error) return <div>Error: {error}</div>;
 
   return (
-    <section className="pb-20">
+    <section className="pb-12 md:pb-16 lg:pb-20">
       <Container>
         <Title title="Discount" />
 
-        <div className=" mt-6">
+        <div className="mt-6">
           <div className="grid grid-cols-1 md:grid-cols-5 gap-4">
             {/* Left discount banner */}
-            <div className="md:col-span-1 bg-green-500 rounded-2xl flex flex-col items-center justify-center text-white text-center px-4 max-w-67.5 h-82 min-h-75">
+            <div className="md:col-span-1 bg-green-500 rounded-2xl flex flex-col items-center justify-center text-white text-center px-4 w-full h-40 sm:h-48 md:h-82 md:max-w-67.5 md:min-h-75">
               <h2 className="text-2xl font-bold">$20</h2>
               <p className="text-base mt-1">Under Products</p>
               <p className="text-xs mt-1 opacity-80">Limited Time Only</p>
