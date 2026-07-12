@@ -20,11 +20,29 @@ import {
 } from "@/components/ui/select";
 
 const navData = [
-  { id: 1, title: "HOME", link: "#" },
-  { id: 2, title: "COLLECTION", link: "#" },
-  { id: 3, title: "JOURNAL", link: "#" },
-  { id: 4, title: "LOOKBOOK", link: "#" },
-  { id: 5, title: "PAGES", link: "#" },
+  { id: 1, title: "HOME", link: "/" },
+  { id: 6, title: "SHOP", link: "/shop" },
+  {
+    id: 2,
+    title: "COLLECTION",
+    link: "/collection ",
+  },
+  {
+    id: 3,
+    title: "JOURNAL",
+    link: "/journal",
+  },
+  {
+    id: 4,
+    title: "LOOKBOOK",
+    link: "/lookbook",
+  },
+  {
+    id: 5,
+    title: "PAGES",
+    link: "/pages",
+  },
+  ,
 ];
 
 const categoryItems = [
@@ -122,12 +140,8 @@ const NavMenu = () => {
 
           {/* buttons */}
           <div className="flex flex-col gap-3 border-t border-border pt-4 text-sm font-medium text-primary-text">
-            <button className="cursor-pointer text-left">
-              SPECIAL OFFER
-            </button>
-            <button className="cursor-pointer text-left">
-              PURCHASE THEME
-            </button>
+            <button className="cursor-pointer text-left">SPECIAL OFFER</button>
+            <button className="cursor-pointer text-left">PURCHASE THEME</button>
           </div>
         </div>
       </SheetContent>

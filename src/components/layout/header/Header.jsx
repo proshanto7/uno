@@ -4,7 +4,7 @@ import Navbar from './Navbar'
 
 function Header() {
   return (
-    <header>
+    <header className='sticky top-0 z-50'>
       <Topheader/>
       <Navbar/>
     </header>

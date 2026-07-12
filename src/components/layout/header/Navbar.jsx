@@ -4,26 +4,27 @@ import Link from "next/link";
 
 function Navbar() {
   const navData = [
-    { id: 1, title: "HOME", link: "#" },
+    { id: 1, title: "HOME", link: "/" },
+    { id: 6, title: "SHOP", link: "/shop" },
     {
       id: 2,
       title: "COLLECTION",
-      link: "#",
+      link: "/collection ",
     },
     {
       id: 3,
       title: "JOURNAL",
-      link: "#",
+      link: "/journal",
     },
     {
       id: 4,
       title: "LOOKBOOK",
-      link: "#",
+      link: "/lookbook",
     },
     {
       id: 5,
       title: "PAGES",
-      link: "#",
+      link: "/pages",
     },
   ];
 

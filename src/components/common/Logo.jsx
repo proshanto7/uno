@@ -1,10 +1,11 @@
 import Image from "next/image";
+import Link from "next/link";
 import React from "react";
 
 function Logo() {
   return (
     <>
-      <button className="cursor-pointer">
+      <Link href="/" className="cursor-pointer">
         <Image
           src="/images/logo.png"
           alt="logo"
@@ -12,7 +13,7 @@ function Logo() {
           height={27}
           className="w-auto h-auto"
         />
-      </button>
+      </Link>
     </>
   );
 }
