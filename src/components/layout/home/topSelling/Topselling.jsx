@@ -47,9 +47,9 @@ const Topselling = () => {
   if (error) return <div>Error: {error}</div>;
 
   return (
-    <section className="pt-22.75">
+    <section className="pt-12 md:pt-16 lg:pt-22.75">
       <Container>
-        <div className="flex items-center justify-between mb-8">
+        <div className="flex flex-col items-start gap-4 mb-6 sm:flex-row sm:items-center sm:justify-between sm:mb-8">
           <Title title="Top Selling Products" />
           <Button name="SEE ALL PRODUCT" />
         </div>

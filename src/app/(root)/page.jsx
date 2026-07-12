@@ -15,7 +15,7 @@ function page() {
       <Content/>
       <FeaturedProducts/>
       <Category/>
-      {/* <Topselling/> */}
+      <Topselling/>
       {/* <Discount/> */}
       {/* <Blog/> */}
       {/* <Whatsapp/> */}
