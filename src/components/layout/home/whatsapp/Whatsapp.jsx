@@ -1,18 +1,18 @@
-import React from "react";
 import Container from "../../Container";
 
 const Whatsapp = () => {
   return (
-    <section className="bg-primary py-16.5">
+    <section className="bg-primary py-10 md:py-13 lg:py-16.5">
       <Container>
-        <div className="flex items-center justify-between">
-          <div className="flex items-center gap-3.5">
+        <div className="flex flex-col items-center gap-6 text-center sm:flex-row sm:items-center sm:justify-between sm:text-left sm:gap-4">
+          <div className="flex flex-col items-center gap-2.5 sm:flex-row sm:items-center sm:gap-3.5">
             <svg
-              width="53"
-              height="53"
+              width="40"
+              height="40"
               viewBox="0 0 53 53"
               fill="none"
               xmlns="http://www.w3.org/2000/svg"
+              className="shrink-0 sm:w-11 sm:h-11 lg:w-13.25 lg:h-13.25"
             >
               <path
                 d="M44.5312 7.73438C49.4531 12.6562 52.5 19.1016 52.5 26.1328C52.5 40.4297 40.5469 52.1484 26.1328 52.1484C21.7969 52.1484 17.5781 50.9766 13.7109 48.9844L0 52.5L3.63281 39.0234C1.40625 35.1562 0.117188 30.7031 0.117188 26.0156C0.117188 11.7188 11.8359 0 26.1328 0C33.1641 0 39.7266 2.8125 44.5312 7.73438ZM26.1328 47.6953C38.0859 47.6953 48.0469 37.9688 48.0469 26.1328C48.0469 20.2734 45.5859 14.8828 41.4844 10.7812C37.3828 6.67969 31.9922 4.45312 26.25 4.45312C14.2969 4.45312 4.57031 14.1797 4.57031 26.0156C4.57031 30.1172 5.74219 34.1016 7.85156 37.6172L8.4375 38.4375L6.21094 46.4062L14.4141 44.1797L15.1172 44.6484C18.5156 46.6406 22.2656 47.6953 26.1328 47.6953ZM38.0859 31.5234C38.6719 31.875 39.1406 31.9922 39.2578 32.3438C39.4922 32.5781 39.4922 33.8672 38.9062 35.3906C38.3203 36.9141 35.7422 38.3203 34.5703 38.4375C32.4609 38.7891 30.8203 38.6719 26.7188 36.7969C20.1562 33.9844 15.9375 27.4219 15.5859 27.0703C15.2344 26.6016 13.0078 23.5547 13.0078 20.2734C13.0078 17.1094 14.6484 15.5859 15.2344 14.8828C15.8203 14.1797 16.5234 14.0625 16.9922 14.0625C17.3438 14.0625 17.8125 14.0625 18.1641 14.0625C18.6328 14.0625 19.1016 13.9453 19.6875 15.2344C20.1562 16.5234 21.5625 19.6875 21.6797 20.0391C21.7969 20.3906 21.9141 20.7422 21.6797 21.2109C20.5078 23.6719 19.1016 23.5547 19.8047 24.7266C22.3828 29.0625 24.8438 30.5859 28.7109 32.4609C29.2969 32.8125 29.6484 32.6953 30.1172 32.3438C30.4688 31.875 31.7578 30.3516 32.1094 29.7656C32.5781 29.0625 33.0469 29.1797 33.6328 29.4141C34.2188 29.6484 37.3828 31.1719 38.0859 31.5234Z"
@@ -20,12 +20,12 @@ const Whatsapp = () => {
               />
             </svg>
 
-            <h5 className="text-[26px] font-normal text-white">
+            <h5 className="text-lg sm:text-xl lg:text-[26px] font-normal text-white">
               Whatsapp Ordering Service
             </h5>
           </div>
           <div>
-            <h5 className="text-[26px] font-normal text-white">
+            <h5 className="text-lg sm:text-xl lg:text-[26px] font-normal text-white">
               Place Your Orders At{" "}
               <span className="text-primary-text">+1 246-345-0695</span>
             </h5>
