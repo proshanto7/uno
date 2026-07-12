@@ -7,107 +7,44 @@ import { ChevronUp } from "lucide-react";
 
 function Footer() {
   const company = [
-    {
-      id: 1,
-      title: "About Us",
-      link: "#",
-    },
-    {
-      id: 2,
-      title: "Careers",
-      link: "#",
-    },
-    {
-      id: 3,
-      title: "Affiliates",
-      link: "#",
-    },
-    {
-      id: 4,
-      title: "Blog",
-      link: "#",
-    },
-    {
-      id: 5,
-      title: "Contact Us",
-      link: "#",
-    },
+    { id: 1, title: "About Us", link: "#" },
+    { id: 2, title: "Careers", link: "#" },
+    { id: 3, title: "Affiliates", link: "#" },
+    { id: 4, title: "Blog", link: "#" },
+    { id: 5, title: "Contact Us", link: "#" },
   ];
   const shop = [
-    {
-      id: 1,
-      title: "New Arrivals",
-      link: "#",
-    },
-    {
-      id: 2,
-      title: "Accessories",
-      link: "#",
-    },
-    {
-      id: 3,
-      title: "Men",
-      link: "#",
-    },
-    {
-      id: 4,
-      title: "Women",
-      link: "#",
-    },
-    {
-      id: 5,
-      title: "Shop All",
-      link: "#",
-    },
+    { id: 1, title: "New Arrivals", link: "#" },
+    { id: 2, title: "Accessories", link: "#" },
+    { id: 3, title: "Men", link: "#" },
+    { id: 4, title: "Women", link: "#" },
+    { id: 5, title: "Shop All", link: "#" },
   ];
 
   const help = [
-    {
-      id: 0,
-      title: "Customer Service",
-      link: "#",
-    },
-    {
-      id: 1,
-      title: "My Account",
-      link: "#",
-    },
-    {
-      id: 2,
-      title: "Find a Store",
-      link: "#",
-    },
-    {
-      id: 3,
-      title: "Legal & Privacy",
-      link: "#",
-    },
-    {
-      id: 4,
-      title: "Contact",
-      link: "#",
-    },
-    {
-      id: 5,
-      title: "Gift Card",
-      link: "#",
-    },
+    { id: 0, title: "Customer Service", link: "#" },
+    { id: 1, title: "My Account", link: "#" },
+    { id: 2, title: "Find a Store", link: "#" },
+    { id: 3, title: "Legal & Privacy", link: "#" },
+    { id: 4, title: "Contact", link: "#" },
+    { id: 5, title: "Gift Card", link: "#" },
   ];
 
   return (
-    <footer className="bg-secondary pt-25">
+    <footer className="bg-secondary pt-12 md:pt-16 lg:pt-25">
       <Container>
-        <div className="grid grid-cols-3 gap-10 pb-20">
+        <div className="grid grid-cols-1 gap-12 pb-12 lg:grid-cols-3 lg:gap-10 lg:pb-20">
+          {/* Logo + address + social */}
           <div>
             <Logo />
-            <div className="text-white text-sm leading-6 font-medium max-w-70.5 mt-11.25 mb-11.75">
+            <div className="text-white text-sm leading-6 font-medium max-w-full sm:max-w-70.5 mt-8 mb-8 lg:mt-11.25 lg:mb-11.75">
               <p>
                 1418 River Drive, Suite 35 Cottonhall, CA 9622 United States
               </p>
               <p>sale@uomo.com</p>
               <p>+1 246-345-0695</p>
             </div>
-            <ul className="flex items-center gap-9">
+            <ul className="flex flex-wrap items-center gap-5 sm:gap-9">
               <li>
                 <Link href="#">
                   <svg
@@ -192,9 +129,12 @@ function Footer() {
             </ul>
           </div>
 
-          <div className="max-w-146.5 flex justify-between">
+          {/* Company / Shop / Help */}
+          <div className="grid grid-cols-2 gap-6 sm:grid-cols-3 lg:max-w-146.5">
             <div className="text-white">
-              <h3 className="text-lg font-medium uppercase mb-7">company</h3>
+              <h3 className="text-base sm:text-lg font-medium uppercase mb-5 sm:mb-7">
+                company
+              </h3>
 
               <ul>
                 {company.map((item) => (
@@ -207,7 +147,9 @@ function Footer() {
               </ul>
             </div>
             <div className="text-white">
-              <h3 className="text-lg font-medium uppercase mb-7">Shop</h3>
+              <h3 className="text-base sm:text-lg font-medium uppercase mb-5 sm:mb-7">
+                Shop
+              </h3>
 
               <ul>
                 {shop.map((item) => (
@@ -220,7 +162,9 @@ function Footer() {
               </ul>
             </div>
             <div className="text-white">
-              <h3 className="text-lg font-medium uppercase mb-7">help</h3>
+              <h3 className="text-base sm:text-lg font-medium uppercase mb-5 sm:mb-7">
+                help
+              </h3>
 
               <ul>
                 {help.map((item) => (
@@ -234,51 +178,58 @@ function Footer() {
             </div>
           </div>
 
-          <div className="text-white max-w-82.5 ml-10">
-            <h3 className="text-lg font-medium uppercase mb-7">SUBSCRIBE</h3>
+          {/* Subscribe */}
+          <div className="text-white w-full lg:max-w-82.5 lg:ml-10">
+            <h3 className="text-base sm:text-lg font-medium uppercase mb-5 sm:mb-7">
+              SUBSCRIBE
+            </h3>
 
-            <p className="mb-4">
-              Be the first to get the latest news about trends, promotions, and
-              much more!
+            <p className="mb-4 text-sm sm:text-base">
+              Be the first to get the latest news about trends, promotions,
+              and much more!
             </p>
 
-            <div className="relative">
+            <div className="relative w-full">
               <input
                 type="email"
-                className="bg-white text-primary-text p-4 w-82.5"
+                className="bg-white text-primary-text p-4 pr-20 w-full"
                 placeholder="Your email address"
               />
-              <button className="text-sm font-medium uppercase absolute right-0 top-[50%] translate-y-[-50%] z-10 bg-transparent text-primary-text py-4 px-6 cursor-pointer">
+              <button className="text-sm font-medium uppercase absolute right-0 top-[50%] translate-y-[-50%] z-10 bg-transparent text-primary-text py-4 px-4 sm:px-6 cursor-pointer">
                 Join
               </button>
             </div>
 
-            <div className="mt-7 flex items-center justify-between">
+            <div className="mt-7 flex flex-wrap items-center gap-6 sm:justify-between">
               <button className="cursor-pointer flex items-center gap-3">
                 <svg
-                  width="28"
-                  height="33"
+                  width="24"
+                  height="28"
                   viewBox="0 0 28 33"
                   fill="none"
                   xmlns="http://www.w3.org/2000/svg"
+                  className="shrink-0"
                 >
                   <path
                     d="M27.207 23.7305C26.0547 23.3789 25.0195 22.5586 24.1211 21.2695C23.2227 19.9805 22.7734 18.5156 22.7734 16.9141C22.7734 15.4297 23.2031 14.082 24.043 12.8711C24.5117 12.1875 25.2539 11.4258 26.2695 10.5664C25.6055 9.74609 24.9219 9.08203 24.2383 8.61328C23.0273 7.77344 21.6406 7.34375 20.0781 7.34375C19.1211 7.34375 17.9883 7.57812 16.6992 8.00781C15.4102 8.45703 14.4727 8.67188 13.9063 8.67188C13.457 8.67188 12.5586 8.47656 11.2109 8.08594C9.84375 7.69531 8.71094 7.5 7.75391 7.5C5.50781 7.5 3.67188 8.4375 2.20703 10.3125C0.742188 12.207 0 14.6289 0 17.6172C0 20.8203 0.976563 24.082 2.87109 27.4414C4.80469 30.8008 6.73828 32.5 8.75 32.5C9.39453 32.5 10.2539 32.2852 11.3281 31.8359C12.3828 31.4063 13.3203 31.1914 14.1016 31.1914C14.9023 31.1914 15.8984 31.3867 17.0508 31.8164C18.2227 32.2266 19.1211 32.4414 19.7852 32.4414C21.4453 32.4414 23.125 31.1719 24.8047 28.6133C25.9375 26.9141 26.7188 25.2734 27.207 23.7305ZM19.8633 0.820312C19.8633 0.683593 19.8438 0.566405 19.8438 0.429687C19.8242 0.312499 19.7852 0.17578 19.7461 -2.38419e-06C17.4805 0.527342 15.8398 1.48437 14.8633 2.89062C13.8867 4.29687 13.3789 5.97656 13.3398 7.91015C14.2578 7.83203 14.9219 7.71484 15.3711 7.57812C16.0742 7.34375 16.7773 6.875 17.4805 6.17187C18.3008 5.35156 18.9063 4.45312 19.2969 3.47656C19.668 2.51953 19.8633 1.62109 19.8633 0.820312Z"
                     fill="white"
                   />
                 </svg>
-                <div>
-                  <span className="text-[13px] block">Download on the</span>
-                  <span className="text-[16px] block">Apple Store</span>
+                <div className="text-left">
+                  <span className="text-xs block">Download on the</span>
+                  <span className="text-sm sm:text-[16px] block">
+                    Apple Store
+                  </span>
                 </div>
               </button>
               <button className="cursor-pointer flex items-center gap-3">
                 <svg
-                  width="28"
-                  height="30"
+                  width="24"
+                  height="26"
                   viewBox="0 0 28 30"
                   fill="none"
                   xmlns="http://www.w3.org/2000/svg"
+                  className="shrink-0"
                 >
                   <path
                     d="M17.5781 13.7695L4.62891 0.761719L21.0938 10.2539L17.5781 13.7695ZM1.28906 0L16.2891 15L1.28906 30C0.527344 29.6484 0 28.8867 0 27.9492V2.10938C0 1.17188 0.527344 0.410156 1.28906 0ZM26.1914 13.2422C27.3047 14.0625 27.3047 15.9961 26.25 16.8164L22.7344 18.8086L18.8672 15L22.7344 11.25L26.1914 13.2422ZM4.62891 29.2383L17.5781 16.2891L21.0938 19.8047L4.62891 29.2383Z"
@@ -286,43 +237,41 @@ function Footer() {
                   />
                 </svg>
 
-                <div>
-                  <span className="text-[13px] block">Get in on</span>
-                  <span className="text-[16px] block">Google Play</span>
+                <div className="text-left">
+                  <span className="text-xs block">Get in on</span>
+                  <span className="text-sm sm:text-[16px] block">
+                    Google Play
+                  </span>
                 </div>
               </button>
             </div>
           </div>
         </div>
 
+        <div>
+          <div className="text-white text-xs px-0 sm:px-6 py-4 flex flex-col items-center gap-4 text-center sm:flex-row sm:items-center sm:justify-between sm:text-left border-t border-white/10">
+            <p>©2026 Uomo All rights reserved</p>
 
-<div>
+            <div className="flex flex-wrap items-center justify-center gap-4 sm:gap-6">
+              <button className="px-2 py-1.5 sm:px-3 cursor-pointer">
+                Language
+              </button>
 
-  <div className=" text-white text-xs px-6 py-4 flex items-center justify-between border-t border-white/10">
-      <p>©2026 Uomo All rights reserved</p>
- 
-      <div className="flex items-center gap-6">
-        <button className=" px-3 py-1.5">
-          Language
-        </button>
- 
-        <div className="flex items-center gap-1.5">
-          <span>United Kingdom</span>
-          <span className="text-white/50">|</span>
-          <span>English</span>
-          <ChevronUp size={14} />
+              <div className="flex items-center gap-1.5 cursor-pointer">
+                <span>United Kingdom</span>
+                <span className="text-white/50">|</span>
+                <span>English</span>
+                <ChevronUp size={14} />
+              </div>
+
+              <div className="flex items-center gap-1.5 cursor-pointer">
+                <span>Currency</span>
+                <span>$ USD</span>
+                <ChevronUp size={14} />
+              </div>
+            </div>
+          </div>
         </div>
- 
-        <div className="flex items-center gap-1.5">
-          <span>Currency</span>
-          <span>$ USD</span>
-          <ChevronUp size={14} />
-        </div>
-      </div>
-    </div>
-
-</div>
-
       </Container>
     </footer>
   );
