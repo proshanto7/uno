@@ -1,9 +1,11 @@
-import React from 'react'
+import ShopPage from "@/components/layout/shop/ShopPage";
 
 const page = () => {
   return (
-    <div>page</div>
-  )
-}
+    <main>
+      <ShopPage/>
+    </main>
+  );
+};
 
-export default page
+export default page;
