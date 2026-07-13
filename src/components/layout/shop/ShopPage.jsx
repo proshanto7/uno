@@ -24,6 +24,39 @@ const sortOptions = [
   { label: "Name: A-Z", value: "name-asc" },
 ];
 
+// Pagination range helper: 1 ... 4 5 6 7 ... 20 style (sliding window)
+const getPaginationRange = (current, total, leftOffset = 1, rightOffset = 2) => {
+  if (total <= leftOffset + rightOffset + 5) {
+    return Array.from({ length: total }, (_, i) => i + 1);
+  }
+
+  let start = Math.max(current - leftOffset, 2);
+  let end = Math.min(current + rightOffset, total - 1);
+
+  if (current - leftOffset <= 2) {
+    start = 2;
+    end = leftOffset + rightOffset + 2;
+  }
+
+  if (current + rightOffset >= total - 1) {
+    end = total - 1;
+    start = total - (leftOffset + rightOffset + 2);
+  }
+
+  const middle = Array.from({ length: end - start + 1 }, (_, i) => start + i);
+
+  const showLeftDots = start > 2;
+  const showRightDots = end < total - 1;
+
+  return [
+    1,
+    showLeftDots ? "dots" : null,
+    ...middle,
+    showRightDots ? "dots" : null,
+    total,
+  ].filter(Boolean);
+};
+
 const ShopPage = () => {
   const [products, setProducts] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -35,18 +68,18 @@ const ShopPage = () => {
   useEffect(() => {
     const fetchProducts = async () => {
       try {
-        const res = await fetch("https://fakestoreapi.com/products");
+        const res = await fetch("https://dummyjson.com/products?limit=194");
         if (!res.ok) throw new Error(`Fetch failed: ${res.status}`);
 
         const data = await res.json();
-        const formatted = data.map((item) => ({
+        const formatted = data.products.map((item) => ({
           id: item.id,
           category: item.category,
           name: item.title,
-          rating: item.rating.rate,
-          reviewCount: item.rating.count,
+          rating: item.rating,
+          reviewCount: item.reviews?.length ?? item.stock ?? 0,
           price: item.price,
-          image: item.image,
+          image: item.thumbnail,
         }));
         setProducts(formatted);
       } catch (err) {
@@ -179,20 +212,29 @@ const ShopPage = () => {
                         &lt; PREV
                       </button>
 
-                      {Array.from({ length: totalPages }, (_, i) => i + 1).map((p) => (
-                        <button
-                          key={p}
-                          type="button"
-                          onClick={() => setPage(p)}
-                          className={`h-8 w-8 cursor-pointer rounded-full ${
-                            p === page
-                              ? "bg-primary-text text-white"
-                              : "text-secondary-text hover:text-primary-text"
-                          }`}
-                        >
-                          {p}
-                        </button>
-                      ))}
+                      {getPaginationRange(page, totalPages).map((p, idx) =>
+                        p === "dots" ? (
+                          <span
+                            key={`dots-${idx}`}
+                            className="w-8 select-none text-center text-secondary-text"
+                          >
+                            ...
+                          </span>
+                        ) : (
+                          <button
+                            key={p}
+                            type="button"
+                            onClick={() => setPage(p)}
+                            className={`h-8 w-8 cursor-pointer rounded-full ${
+                              p === page
+                                ? "bg-primary-text text-white"
+                                : "text-secondary-text hover:text-primary-text"
+                            }`}
+                          >
+                            {p}
+                          </button>
+                        )
+                      )}
 
                       <button
                         type="button"
