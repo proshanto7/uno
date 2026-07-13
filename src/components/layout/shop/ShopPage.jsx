@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useState, useMemo } from "react";
-import { LayoutGrid, List } from "lucide-react";
+import { LayoutGrid, List, SlidersHorizontal } from "lucide-react";
 import Container from "@/components/layout/Container";
 import ShopBanner from "@/components/layout/shop/ShopBanner";
 import ShopSidebar from "@/components/layout/shop/ShopSidebar";
@@ -14,6 +14,13 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
+import {
+  Sheet,
+  SheetContent,
+  SheetHeader,
+  SheetTitle,
+  SheetTrigger,
+} from "@/components/ui/sheet";
 
 const PAGE_SIZE = 9;
 
@@ -26,36 +33,27 @@ const sortOptions = [
 
 const fallbackCategories = [{ slug: "ALL", name: "ALL" }];
 
-// Pagination range helper: 1 ... 4 5 6 7 ... 20 style
-const getPaginationRange = (current, total, leftOffset = 1, rightOffset = 2) => {
-  if (total <= leftOffset + rightOffset + 5) {
+//pagination functions
+
+const getPaginationRange = (current, total, siblingCount = 2) => {
+  const windowSize = siblingCount * 2 + 1;
+
+  if (total <= windowSize + 1) {
     return Array.from({ length: total }, (_, i) => i + 1);
   }
 
-  let start = Math.max(current - leftOffset, 2);
-  let end = Math.min(current + rightOffset, total - 1);
+  let start = Math.max(current - siblingCount, 1);
+  let end = Math.min(start + windowSize - 1, total);
+  start = Math.max(end - windowSize + 1, 1);
 
-  if (current - leftOffset <= 2) {
-    start = 2;
-    end = leftOffset + rightOffset + 2;
-  }
-
-  if (current + rightOffset >= total - 1) {
-    end = total - 1;
-    start = total - (leftOffset + rightOffset + 2);
-  }
-
-  const middle = Array.from({ length: end - start + 1 }, (_, i) => start + i);
-
-  const showLeftDots = start > 2;
+  const range = Array.from({ length: end - start + 1 }, (_, i) => start + i);
   const showRightDots = end < total - 1;
+  const showLastPage = end < total;
 
   return [
-    1,
-    showLeftDots ? "dots" : null,
-    ...middle,
+    ...range,
     showRightDots ? "dots" : null,
-    total,
+    showLastPage ? total : null,
   ].filter(Boolean);
 };
 
@@ -67,6 +65,7 @@ const ShopPage = () => {
   const [activeCategory, setActiveCategory] = useState("ALL");
   const [sortBy, setSortBy] = useState("default");
   const [page, setPage] = useState(1);
+  const [filterOpen, setFilterOpen] = useState(false);
   const [sidebarFilters, setSidebarFilters] = useState({
     color: null,
     size: null,
@@ -74,7 +73,6 @@ const ShopPage = () => {
     priceRange: null,
   });
 
-  // Products fetch
   useEffect(() => {
     const fetchProducts = async () => {
       try {
@@ -103,7 +101,6 @@ const ShopPage = () => {
     fetchProducts();
   }, []);
 
-  // Categories fetch (একবারই, দুই জায়গায় share হবে)
   useEffect(() => {
     const fetchCategories = async () => {
       try {
@@ -123,7 +120,7 @@ const ShopPage = () => {
 
   const uniqueBrands = useMemo(
     () => [...new Set(products.map((p) => p.brand).filter(Boolean))].sort(),
-    [products]
+    [products],
   );
 
   const maxPrice = useMemo(() => {
@@ -136,10 +133,9 @@ const ShopPage = () => {
       activeCategory === "ALL"
         ? products
         : products.filter(
-            (p) => p.category.toLowerCase() === activeCategory.toLowerCase()
+            (p) => p.category.toLowerCase() === activeCategory.toLowerCase(),
           );
 
-    // Sidebar filters apply
     if (sidebarFilters.brands.length > 0) {
       list = list.filter((p) => sidebarFilters.brands.includes(p.brand));
     }
@@ -166,16 +162,28 @@ const ShopPage = () => {
 
   const totalPages = Math.max(
     1,
-    Math.ceil(filteredProducts.length / PAGE_SIZE)
+    Math.ceil(filteredProducts.length / PAGE_SIZE),
   );
   const paginatedProducts = filteredProducts.slice(
     (page - 1) * PAGE_SIZE,
-    page * PAGE_SIZE
+    page * PAGE_SIZE,
   );
 
   useEffect(() => {
     setPage(1);
   }, [activeCategory, sortBy, sidebarFilters]);
+
+  const sidebarProps = {
+    categories,
+    activeCategory,
+    onCategoryChange: (val) => {
+      setActiveCategory(val);
+      setFilterOpen(false); // mobile-এ category select করলে drawer বন্ধ হয়ে যাবে
+    },
+    brands: uniqueBrands,
+    maxPrice,
+    onFilterChange: setSidebarFilters,
+  };
 
   return (
     <>
@@ -188,15 +196,37 @@ const ShopPage = () => {
 
       <section className="py-10 md:py-14">
         <Container>
-          {/* Breadcrumb + sort + view */}
+          {/* Breadcrumb + filter button (mobile) + sort + view */}
           <div className="mb-8 flex flex-col gap-3 border-b border-border pb-4 sm:flex-row sm:items-center sm:justify-between">
             <p className="text-xs uppercase tracking-wide text-secondary-text">
               Home / The Shop
             </p>
 
-            <div className="flex items-center gap-4">
+            <div className="flex items-center justify-between gap-3 sm:justify-end sm:gap-4">
+              {/* Mobile-only Filter button */}
+
+              <Sheet open={filterOpen} onOpenChange={setFilterOpen}>
+                <SheetTrigger className="flex h-9 items-center gap-2 rounded-none border border-border px-4 text-xs uppercase tracking-wide hover:bg-accent lg:hidden">
+                  <SlidersHorizontal size={14} />
+                  Filter
+                </SheetTrigger>
+                <SheetContent
+                  side="left"
+                  className="w-[300px] overflow-y-auto px-5 sm:w-[340px]"
+                >
+                  <SheetHeader className="px-0">
+                    <SheetTitle className="text-left text-sm uppercase tracking-wide">
+                      Filters
+                    </SheetTitle>
+                  </SheetHeader>
+                  <div className="mt-6">
+                    <ShopSidebar {...sidebarProps} />
+                  </div>
+                </SheetContent>
+              </Sheet>
+
               <Select value={sortBy} onValueChange={setSortBy}>
-                <SelectTrigger className="h-9 w-44 rounded-none border-border text-xs uppercase tracking-wide">
+                <SelectTrigger className="h-9 w-36 rounded-none border-border text-xs uppercase tracking-wide sm:w-44">
                   <SelectValue placeholder="Default sorting" />
                 </SelectTrigger>
                 <SelectContent>
@@ -211,7 +241,10 @@ const ShopPage = () => {
               </Select>
 
               <div className="hidden items-center gap-2 sm:flex">
-                <button type="button" className="cursor-pointer text-primary-text">
+                <button
+                  type="button"
+                  className="cursor-pointer text-primary-text"
+                >
                   <LayoutGrid size={16} />
                 </button>
                 <button
@@ -224,16 +257,11 @@ const ShopPage = () => {
             </div>
           </div>
 
-          {/* Sidebar + grid */}
+          {/* Sidebar (desktop) + grid */}
           <div className="grid grid-cols-1 gap-10 lg:grid-cols-[220px_1fr]">
-            <ShopSidebar
-              categories={categories}
-              activeCategory={activeCategory}
-              onCategoryChange={setActiveCategory}
-              brands={uniqueBrands}
-              maxPrice={maxPrice}
-              onFilterChange={setSidebarFilters}
-            />
+            <div className="hidden lg:block">
+              <ShopSidebar {...sidebarProps} />
+            </div>
 
             <div>
               {loading && <div>Loading...</div>}
@@ -251,28 +279,33 @@ const ShopPage = () => {
                         <ProductCard
                           key={product.id}
                           product={product}
-                          badge={idx === 0 ? "SALE" : idx === 1 ? "NEW" : undefined}
+                          badge={
+                            idx === 0 ? "SALE" : idx === 1 ? "NEW" : undefined
+                          }
                         />
                       ))}
                     </div>
                   )}
 
                   {totalPages > 1 && (
-                    <div className="mt-12 flex items-center justify-center gap-3 text-sm">
+                    <div className="mt-12 flex flex-wrap items-center justify-center gap-1.5 text-xs sm:gap-3 sm:text-sm">
                       <button
                         type="button"
                         disabled={page === 1}
                         onClick={() => setPage((p) => Math.max(1, p - 1))}
-                        className="cursor-pointer text-secondary-text hover:text-primary-text disabled:cursor-not-allowed disabled:opacity-40"
+                        className="cursor-pointer whitespace-nowrap text-secondary-text hover:text-primary-text disabled:cursor-not-allowed disabled:opacity-40"
                       >
-                        &lt; PREV
+                        &lt;{" "}
+                        <span className="hidden md:inline text-primary-text">
+                          PREV
+                        </span>
                       </button>
 
                       {getPaginationRange(page, totalPages).map((p, idx) =>
                         p === "dots" ? (
                           <span
                             key={`dots-${idx}`}
-                            className="w-8 select-none text-center text-secondary-text"
+                            className="w-5 select-none text-center text-secondary-text sm:w-8"
                           >
                             ...
                           </span>
@@ -281,7 +314,7 @@ const ShopPage = () => {
                             key={p}
                             type="button"
                             onClick={() => setPage(p)}
-                            className={`h-8 w-8 cursor-pointer rounded-full ${
+                            className={`h-7 w-7 shrink-0 cursor-pointer rounded-full sm:h-8 sm:w-8 ${
                               p === page
                                 ? "bg-primary-text text-white"
                                 : "text-secondary-text hover:text-primary-text"
@@ -289,16 +322,21 @@ const ShopPage = () => {
                           >
                             {p}
                           </button>
-                        )
+                        ),
                       )}
 
                       <button
                         type="button"
                         disabled={page === totalPages}
-                        onClick={() => setPage((p) => Math.min(totalPages, p + 1))}
-                        className="cursor-pointer text-secondary-text hover:text-primary-text disabled:cursor-not-allowed disabled:opacity-40"
+                        onClick={() =>
+                          setPage((p) => Math.min(totalPages, p + 1))
+                        }
+                        className="cursor-pointer whitespace-nowrap text-secondary-text hover:text-primary-text disabled:cursor-not-allowed disabled:opacity-40"
                       >
-                        NEXT &gt;
+                        <span className="hidden md:inline text-primary-text">
+                          NEXT
+                        </span>{" "}
+                        &gt;
                       </button>
                     </div>
                   )}
