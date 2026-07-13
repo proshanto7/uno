@@ -24,7 +24,9 @@ const sortOptions = [
   { label: "Name: A-Z", value: "name-asc" },
 ];
 
-// Pagination range helper: 1 ... 4 5 6 7 ... 20 style (sliding window)
+const fallbackCategories = [{ slug: "ALL", name: "ALL" }];
+
+// Pagination range helper: 1 ... 4 5 6 7 ... 20 style
 const getPaginationRange = (current, total, leftOffset = 1, rightOffset = 2) => {
   if (total <= leftOffset + rightOffset + 5) {
     return Array.from({ length: total }, (_, i) => i + 1);
@@ -59,12 +61,20 @@ const getPaginationRange = (current, total, leftOffset = 1, rightOffset = 2) => 
 
 const ShopPage = () => {
   const [products, setProducts] = useState([]);
+  const [categories, setCategories] = useState(fallbackCategories);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
-  const [activeCategory, setActiveCategory] = useState("HOODIES");
+  const [activeCategory, setActiveCategory] = useState("ALL");
   const [sortBy, setSortBy] = useState("default");
   const [page, setPage] = useState(1);
+  const [sidebarFilters, setSidebarFilters] = useState({
+    color: null,
+    size: null,
+    brands: [],
+    priceRange: null,
+  });
 
+  // Products fetch
   useEffect(() => {
     const fetchProducts = async () => {
       try {
@@ -75,6 +85,7 @@ const ShopPage = () => {
         const formatted = data.products.map((item) => ({
           id: item.id,
           category: item.category,
+          brand: item.brand,
           name: item.title,
           rating: item.rating,
           reviewCount: item.reviews?.length ?? item.stock ?? 0,
@@ -92,13 +103,50 @@ const ShopPage = () => {
     fetchProducts();
   }, []);
 
+  // Categories fetch (একবারই, দুই জায়গায় share হবে)
+  useEffect(() => {
+    const fetchCategories = async () => {
+      try {
+        const res = await fetch("https://dummyjson.com/products/categories");
+        if (!res.ok) throw new Error(`Fetch failed: ${res.status}`);
+
+        const data = await res.json();
+        const formatted = data.map((c) => ({ slug: c.slug, name: c.name }));
+        setCategories([{ slug: "ALL", name: "ALL" }, ...formatted]);
+      } catch (err) {
+        console.error("Category fetch error:", err);
+      }
+    };
+
+    fetchCategories();
+  }, []);
+
+  const uniqueBrands = useMemo(
+    () => [...new Set(products.map((p) => p.brand).filter(Boolean))].sort(),
+    [products]
+  );
+
+  const maxPrice = useMemo(() => {
+    if (products.length === 0) return 1000;
+    return Math.ceil(Math.max(...products.map((p) => p.price)) / 10) * 10;
+  }, [products]);
+
   const filteredProducts = useMemo(() => {
     let list =
-      activeCategory === "#STAYHOME" || activeCategory === "NEW IN"
+      activeCategory === "ALL"
         ? products
         : products.filter(
             (p) => p.category.toLowerCase() === activeCategory.toLowerCase()
           );
+
+    // Sidebar filters apply
+    if (sidebarFilters.brands.length > 0) {
+      list = list.filter((p) => sidebarFilters.brands.includes(p.brand));
+    }
+    if (sidebarFilters.priceRange) {
+      const [min, max] = sidebarFilters.priceRange;
+      list = list.filter((p) => p.price >= min && p.price <= max);
+    }
 
     switch (sortBy) {
       case "price-asc":
@@ -114,7 +162,7 @@ const ShopPage = () => {
         break;
     }
     return list;
-  }, [products, activeCategory, sortBy]);
+  }, [products, activeCategory, sortBy, sidebarFilters]);
 
   const totalPages = Math.max(
     1,
@@ -127,7 +175,7 @@ const ShopPage = () => {
 
   useEffect(() => {
     setPage(1);
-  }, [activeCategory, sortBy]);
+  }, [activeCategory, sortBy, sidebarFilters]);
 
   return (
     <>
@@ -135,6 +183,7 @@ const ShopPage = () => {
         title={activeCategory}
         activeCategory={activeCategory}
         onCategoryChange={setActiveCategory}
+        categories={categories}
       />
 
       <section className="py-10 md:py-14">
@@ -177,7 +226,14 @@ const ShopPage = () => {
 
           {/* Sidebar + grid */}
           <div className="grid grid-cols-1 gap-10 lg:grid-cols-[220px_1fr]">
-            <ShopSidebar />
+            <ShopSidebar
+              categories={categories}
+              activeCategory={activeCategory}
+              onCategoryChange={setActiveCategory}
+              brands={uniqueBrands}
+              maxPrice={maxPrice}
+              onFilterChange={setSidebarFilters}
+            />
 
             <div>
               {loading && <div>Loading...</div>}

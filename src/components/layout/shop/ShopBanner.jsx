@@ -3,7 +3,7 @@ import React, { useEffect, useState } from "react";
 import Link from "next/link";
 import Container from "../Container";
 
-// Fallback static categories, dynamic fetch fail করলে এগুলো দেখাবে
+// Fallback static categories, dynamic fetch fail should be handled
 const fallbackCategories = [
   { slug: "ALL", name: "ALL" },
   { slug: "smartphones", name: "Smartphones" },
@@ -18,8 +18,9 @@ const fallbackCategories = [
 
 const ShopBanner = ({ title = "ALL", activeCategory, onCategoryChange }) => {
   const [categories, setCategories] = useState(fallbackCategories);
+  
 
-  useEffect(() => {
+  useEffect(() => { 
     const fetchCategories = async () => {
       try {
         const res = await fetch("https://dummyjson.com/products/categories");
@@ -75,7 +76,7 @@ const ShopBanner = ({ title = "ALL", activeCategory, onCategoryChange }) => {
         </div>
       </Container>
     </section>
-  );
+  ); 
 };
 
 export default ShopBanner;
