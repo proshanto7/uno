@@ -21,6 +21,7 @@ import {
   SheetTitle,
   SheetTrigger,
 } from "@/components/ui/sheet";
+import DynamicBreadcrumb from "@/components/common/DynamicBreadcrumb";
 
 const PAGE_SIZE = 9;
 
@@ -198,9 +199,21 @@ const ShopPage = () => {
         <Container>
           {/* Breadcrumb + filter button (mobile) + sort + view */}
           <div className="mb-8 flex flex-col gap-3 border-b border-border pb-4 sm:flex-row sm:items-center sm:justify-between">
-            <p className="text-xs uppercase tracking-wide text-secondary-text">
-              Home / The Shop
-            </p>
+            <DynamicBreadcrumb
+              items={[
+                { label: "Home", href: "/" },
+                { label: "Shop", href: "/shop" },
+                ...(activeCategory !== "ALL"
+                  ? [
+                      {
+                        label:
+                          categories.find((c) => c.slug === activeCategory)
+                            ?.name ?? activeCategory,
+                      },
+                    ]
+                  : []),
+              ]}
+            />
 
             <div className="flex items-center justify-between gap-3 sm:justify-end sm:gap-4">
               {/* Mobile-only Filter button */}
@@ -212,7 +225,7 @@ const ShopPage = () => {
                 </SheetTrigger>
                 <SheetContent
                   side="left"
-                  className="w-[300px] overflow-y-auto px-5 sm:w-[340px]"
+                  className="w-75 overflow-y-auto px-5 sm:w-85"
                 >
                   <SheetHeader className="px-0">
                     <SheetTitle className="text-left text-sm uppercase tracking-wide">
